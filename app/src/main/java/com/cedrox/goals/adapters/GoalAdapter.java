@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.cedrox.goals.MainActivity;
 import com.cedrox.goals.R;
 import com.cedrox.goals.dao.GoalDAO;
 import com.cedrox.goals.entity.Goal;
@@ -50,6 +51,13 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
                 notifyDataSetChanged();
             }
         });
+        convertView.setOnTouchListener(new OnSwipeTouchListener(convertView.getContext()) {
+            public void onSwipeRight() {
+                GoalDAO goalDAO = new GoalDAO();
+                goalDAO.remove(getGoalList().get(position).getDescription(),getContext());
+            }
+        });
+
 
         return convertView;
     }
